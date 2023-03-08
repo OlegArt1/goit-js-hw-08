@@ -1,18 +1,26 @@
+// Feedback
+
+const body = document.querySelector("body");
+
 const form = document.querySelector(".feedback-form");
+
+const labelForm = document.querySelector("label");
 
 const inputForm = document.querySelector("input");
 
 const textareaForm = document.querySelector("textarea");
 
-const buttonForm = document.querySelector("button");
-
-const labelForm = document.querySelector(".labelText");
+const widthContainer = (window.innerWidth - 480) / 2;
 
 const LOCALSTORAGE_KEY = "feedback-form-state";
 
+form.style.marginTop = '90px';
+
+form.style.marginLeft = widthContainer + 'px';
+
 updateOutput();
 
-form.addEventListener("submit", (event) =>
+form.addEventListener('submit', (event) =>
 {
     event.preventDefault();
 
@@ -25,27 +33,29 @@ form.addEventListener("submit", (event) =>
 
     } = event.currentTarget;
   
-    if (email.value === "" || message.value === "")
+    if (email.value === '' || message.value === '')
     {
-        return alert("Please fill in all the fields!");
+        return body.setAttribute("onload", Notiflix.Notify.failure('Ошибка! Заполните пустые колонки!'));
     }
-    const user_email = email.value;
+    else
+    {
+        const user_email = email.value;
   
-    const user_message = message.value;
+        const user_message = message.value;
   
-    const user_json = '{ ' + "'email': " + "'" + user_email + "', " + "'message': " + "'" + user_message + "' };";
+        const user_json = '{ ' + "'email': " + "'" + user_email + "', " + "'message': " + "'" + user_message + "' };";
   
-    save(user_json);
-  
-    console.log(`\nEmail: ${email.value};`, `Message: ${message.value};`);
-  
+        SaveData (user_json);
+   
+        GetData();
+    }
     event.currentTarget.reset();
 
     updateOutput();
 
     form.reset();
 });
-function save(text)
+function SaveData (text)
 {
     try
     {
@@ -53,17 +63,36 @@ function save(text)
     
         localStorage.setItem("message", form.elements.message.value);
 
-        const saveData = localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(text));
+        const save_data = localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(text));
+
+        body.setAttribute("onload", Notiflix.Notify.success('Успех! Данные отправлены на сервер!'));
 
         console.log("\nData sent to source storage!");
 
-        return saveData;
+        return save_data;
     }
     catch (error)
     {
-        console.log("Error name - ", error.name + ";");
+        console.log("\nError name - ", error.name + ";");
         
-        console.log("Error message - ", error.message + ";");
+        console.log("\nError message - ", error.message + ";");
+    }
+}
+function GetData()
+{
+    try
+    {
+        body.setAttribute("onload", Notiflix.Notify.warning('Успех! Данные выгружены с сервера!'));
+
+        console.log("\nData get to source storage!", "\n\nEmail: " + localStorage.getItem("email") + "; " +
+            
+                    "Password: " + localStorage.getItem("message") + ";");
+    }
+    catch (error)
+    {
+        console.log("\nError name - ", error.name + ";");
+        
+        console.log("\nError message - ", error.message + ";");
     }
 }
 function updateOutput()
