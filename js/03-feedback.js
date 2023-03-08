@@ -35,7 +35,7 @@ form.addEventListener('submit', (event) =>
   
     if (email.value === '' || message.value === '')
     {
-        return body.setAttribute("onload", Notiflix.Notify.failure('Ошибка! Заполните пустые колонки!'));
+        return alert("Error! Fill in the empty columns!");
     }
     else
     {
@@ -65,8 +65,6 @@ function SaveData (text)
 
         const save_data = localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(text));
 
-        body.setAttribute("onload", Notiflix.Notify.success('Успех! Данные отправлены на сервер!'));
-
         console.log("\nData sent to source storage!");
 
         return save_data;
@@ -82,9 +80,9 @@ function GetData()
 {
     try
     {
-        body.setAttribute("onload", Notiflix.Notify.warning('Успех! Данные выгружены с сервера!'));
-
-        console.log("\nData get to source storage!", "\n\nEmail: " + localStorage.getItem("email") + "; " +
+        console.log("\nData get to source storage!", 
+             
+                    "\n\nEmail: " + localStorage.getItem("email") + "; " +
             
                     "Password: " + localStorage.getItem("message") + ";");
     }
