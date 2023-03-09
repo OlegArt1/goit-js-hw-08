@@ -1,53 +1,24 @@
-import { galleryItems } from './gallery-items.js';
+// Gallery
 
-import "../node_modules/simplelightbox/dist/simple-lightbox.esm.js";
+import { galleryItems } from "./gallery-items.js";
 
-// import SimpleLightbox from "simplelightbox";
+import { SimpleLightbox } from "../simplelightbox/dist/simple-lightbox.min.js";
 
-const imagesGallery = document.querySelector('.gallery');
+import "../simplelightbox/dist/simple-lightbox.css";
 
-const newElement = document.createElement("div");
+const gallery = document.querySelector(".gallery");
 
-const modalContainerElement = document.createElement('div');
+const galleryList = galleryItems.map((gallery) => "<li class='gallery_item'>" +
 
-const modalContentElement = document.createElement('div');
-
-newElement.classList.add("gallery__item");
-
-modalContainerElement.classList.add('image-modal-overlay');
-
-modalContentElement.classList.add('image-modal');
-
-imagesGallery.append(newElement);
-
-imagesGallery.after(modalContainerElement);
-
-modalContainerElement.append(modalContentElement);
-
-const imageElements = galleryItems.reduce((acum, item) =>
-{
-    return (acum += `<a class='gallery__link' href='#'><img class='gallery__image' src="${item.preview}" data-source="${item.original}" alt="${item.description}"/></a>`);
-
-}, '');
-
-newElement.insertAdjacentHTML('beforeend', imageElements);
-
-newElement.addEventListener('click', (event) =>
-{
-    if (event.target.nodeName !== 'IMG')
-    {
-        return;
-    }
-    modalContainerElement.classList.add('visible');
+    `<a class='gallery__link' href='${gallery.original}'>` +
     
-    modalContentElement.innerHTML = '';
+    `<img class='gallery__image' src='${gallery.preview}' style='border: 2px solid black;' data-source='${gallery.original}' title='${gallery.description}' alt='${gallery.description}'/>` +
     
-    modalContentElement.insertAdjacentHTML('beforeend', `<img class='image' src='${event.target.src}' alt='${event.target.alt}'/>`);
-});
-document.addEventListener('keydown', (e) =>
+    '</a></li>').join("");
+
+gallery.insertAdjacentHTML('beforeend', galleryList);
+
+new SimpleLightbox(".gallery a",
 {
-    if (e.code === 'Escape')
-    {
-        modalContainerElement.classList.remove('visible');
-    }
+    captionDelay: 250,
 });
