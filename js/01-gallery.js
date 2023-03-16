@@ -2,11 +2,31 @@
 
 import { galleryItems } from "./gallery-items.js";
 
-import { SimpleLightbox } from "../simplelightbox/dist/simple-lightbox.min.js";
+import { SimpleLightbox } from "../node_modules/simplelightbox/dist/simple-lightbox.esm.js";
 
-import "../simplelightbox/dist/simple-lightbox.css";
+import "../node_modules/simplelightbox/dist/simple-lightbox.min.js";
+
+import "../node_modules/simplelightbox/dist/simple-lightbox.css";
 
 const gallery = document.querySelector(".gallery");
+
+const htmlElement = document.querySelector("head");
+
+const htmlNewOneElement = document.createElement("link");
+
+const htmlNewTwoElement = document.createElement("link");
+
+htmlNewOneElement.rel = 'stylesheet';
+
+htmlNewOneElement.href = 'https://fonts.googleapis.com/css?family=Raleway:300,400,700';
+
+htmlNewTwoElement.rel = 'stylesheet';
+
+htmlNewTwoElement.href = 'https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.css';
+
+htmlElement.append(htmlNewOneElement);
+
+htmlElement.append(htmlNewTwoElement);
 
 const galleryList = galleryItems.map((gallery) => "<li class='gallery_item'>" +
 
@@ -18,7 +38,7 @@ const galleryList = galleryItems.map((gallery) => "<li class='gallery_item'>" +
 
 gallery.insertAdjacentHTML('beforeend', galleryList);
 
-new SimpleLightbox(".gallery a",
+new SimpleLightbox(".gallery li",
 {
     captionDelay: 250,
 });
