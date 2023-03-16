@@ -34,13 +34,17 @@ player.on('timeupdate', function (time_update)
 });
 player.on('pause', (() =>
 {
+    
     console.log('\nStop video!');
 
     console.log('\nSet current time = ', time + ' seconds;');
 }));
+//function setTime(time)
+//{
+
 player.setCurrentTime(time).then(() =>
 {
-
+console.log(time);
 }).catch(function (error)
 {
     switch (error.name)
@@ -60,3 +64,8 @@ player.setCurrentTime(time).then(() =>
             break;
     }
 });
+//}
+//window.onload=()=>
+//{
+//setTime();
+//};
