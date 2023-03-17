@@ -1,34 +1,48 @@
-// Gallery
+// Gallery SimpleLightbox
 
 import { galleryItems } from "./gallery-items.js";
 
-import { SimpleLightbox } from "../node_modules/simplelightbox/dist/simple-lightbox.esm.js";
+const body = document.querySelector("body");
 
-import "../node_modules/simplelightbox/dist/simple-lightbox.min.js";
-
-import "../node_modules/simplelightbox/dist/simple-lightbox.css";
+const head = document.querySelector("head");
 
 const gallery = document.querySelector(".gallery");
 
-const htmlElement = document.querySelector("head");
+const linkNewOneElement = document.createElement("link");
 
-const htmlNewOneElement = document.createElement("link");
+const linkNewTwoElement = document.createElement("link");
 
-const htmlNewTwoElement = document.createElement("link");
+const scriptNewElement = document.createElement("script");
 
-htmlNewOneElement.rel = 'stylesheet';
+const scriptElement = body.lastElementChild.previousElementSibling;
 
-htmlNewOneElement.href = 'https://fonts.googleapis.com/css?family=Raleway:300,400,700';
+const metaElement = head.firstElementChild.nextElementSibling.nextElementSibling;
 
-htmlNewTwoElement.rel = 'stylesheet';
+gallery.style.marginTop = '40px';
 
-htmlNewTwoElement.href = 'https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.css';
+gallery.style.marginLeft = '80px';
 
-htmlElement.append(htmlNewOneElement);
+gallery.style.marginBottom = '40px';
 
-htmlElement.append(htmlNewTwoElement);
+gallery.style.listStyleType = 'none';
 
-const galleryList = galleryItems.map((gallery) => "<li class='gallery_item'>" +
+linkNewOneElement.rel = 'stylesheet';
+
+linkNewTwoElement.rel = 'stylesheet';
+
+linkNewOneElement.href = 'https://fonts.googleapis.com/css?family=Raleway:300,400,700';
+
+linkNewTwoElement.href = 'https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.css';
+
+scriptNewElement.src = 'https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.min.js';
+
+metaElement.after(linkNewOneElement);
+
+linkNewOneElement.after(linkNewTwoElement);
+
+const galleryList = galleryItems.map((gallery) =>
+
+    "<li class='gallery_item'>" +
 
     `<a class='gallery__link' href='${gallery.original}'>` +
     
@@ -38,7 +52,7 @@ const galleryList = galleryItems.map((gallery) => "<li class='gallery_item'>" +
 
 gallery.insertAdjacentHTML('beforeend', galleryList);
 
-new SimpleLightbox(".gallery li",
+new SimpleLightbox(".gallery a",
 {
-    captionDelay: 250,
+    captionDelay: 250
 });

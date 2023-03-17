@@ -34,7 +34,6 @@ player.on('timeupdate', function (time_update)
 });
 player.on('pause', (() =>
 {
-    
     console.log('\nStop video!');
 
     console.log('\nSet current time = ', time + ' seconds;');
