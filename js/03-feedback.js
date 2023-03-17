@@ -14,9 +14,9 @@ const widthContainer = (window.innerWidth - 480) / 2;
 
 const LOCALSTORAGE_KEY = "feedback-form-state";
 
-form.style.marginLeft = widthContainer + 'px';
-
 form.style.marginTop = '90px';
+
+form.style.marginLeft = widthContainer + 'px';
 
 updateOutput();
 
@@ -57,17 +57,13 @@ form.addEventListener('submit', (event) =>
 
         }, 2000);
 
-        //setTimeout(() =>
-        //{
+        setTimeout(() =>
+        {
             localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(user_json));
 
-        //    GetData();
+            GetData();
 
-        //}, 2000);
-
-        console.log("\nEmail: " + localStorage.getItem("email") + "; " +
-            
-                    "Password: " + localStorage.getItem("message") + ";");
+        }, 2000);
     }
     event.currentTarget.reset();
 
@@ -81,7 +77,7 @@ function saveEmail (email)
     {
         const save_email = localStorage.setItem("email", JSON.stringify(email));
     
-        body.setAttribute("onload", Notiflix.Notify.success('Success! Data email sent to source storage!'));
+        body.setAttribute("onload", Notiflix.Notify.success('Успех! Данные отправлены на сервер!'));
 
         console.log("\nSuccess! Data email sent to source storage!");
 
@@ -89,7 +85,7 @@ function saveEmail (email)
     }
     catch (error)
     {
-        body.setAttribute("onload", Notiflix.Notify.failure('Error ' + error.name + '! ' + error.message + "!"));
+        body.setAttribute("onload", Notiflix.Notify.failure('Ошибка ' + error.name + '! ' + error.message + "!"));
         
         console.log("\nError " + error.name + "!" + "Error message - " + error.message + "!");
     }
@@ -100,7 +96,7 @@ function saveMessage (message)
     {
         const save_message = localStorage.setItem("message", JSON.stringify(message));
 
-        body.setAttribute("onload", Notiflix.Notify.success('Success! Data message sent to source storage!'));
+        body.setAttribute("onload", Notiflix.Notify.success('Успех! Данные отправлены на сервер!'));
         
         console.log("\nSuccess! Data message sent to source storage!");
 
@@ -108,7 +104,7 @@ function saveMessage (message)
     }
     catch (error)
     {
-        body.setAttribute("onload", Notiflix.Notify.failure('Error ' + error.name + '! ' + error.message + "!"));
+        body.setAttribute("onload", Notiflix.Notify.failure('Ошибка ' + error.name + '! ' + error.message + "!"));
         
         console.log("\nError " + error.name + "!" + "Error message - " + error.message + "!");
     }
@@ -117,24 +113,24 @@ function GetData()
 {
     try
     {
-        body.setAttribute("onload", Notiflix.Notify.warning('Success! Data get to source storage!'));
+        body.setAttribute("onload", Notiflix.Notify.warning('Успех! Данные выгружены с сервера!'));
 
         console.log("\nSuccess! Data get to source storage!",
         
-                    "\n\n\nEmail: " + localStorage.getItem("email") + "; " +
+                    "\n\n\nEmail: " + localStorage.getItem("email").split("\"").join("") + "; " +
             
-                    "Password: " + localStorage.getItem("message") + ";");
+                    "Password: " + localStorage.getItem("message").split("\"").join("") + ";");
     }
     catch (error)
     {
-        body.setAttribute("onload", Notiflix.Notify.failure('Error ' + error.name + '! ' + error.message + "!"));
+        body.setAttribute("onload", Notiflix.Notify.failure('Ошибка ' + error.name + '! ' + error.message + "!"));
 
         console.log("\nError " + error.name + "!" + "Error message - " + error.message + "!");
     }
 }
 function updateOutput()
 {
-    inputForm.value = localStorage.getItem("email") || "";
+    inputForm.value = localStorage.getItem("email").split("\"").join("") || "";
   
-    textareaForm.value = localStorage.getItem("message") || "";
+    textareaForm.value = localStorage.getItem("message").split("\"").join("") || "";
 }

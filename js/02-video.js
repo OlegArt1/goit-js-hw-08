@@ -41,9 +41,9 @@ player.on('pause', (() =>
 //function setTime(time)
 //{
 
-player.setCurrentTime(time).then(() =>
+player.setCurrentTime(Number.parseInt(time)).then(() =>
 {
-console.log(time);
+//console.log(time);
 }).catch(function (error)
 {
     switch (error.name)
