@@ -2,6 +2,10 @@
 
 import { galleryItems } from "./gallery-items.js";
 
+import { SimpleLightbox } from "../simplelightbox/simple-lightbox.esm.js";
+
+import "../simplelightbox/simple-lightbox.js";
+
 const body = document.querySelector("body");
 
 const head = document.querySelector("head");
