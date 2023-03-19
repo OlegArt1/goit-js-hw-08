@@ -18,13 +18,13 @@ form.style.marginTop = '90px';
 
 form.addEventListener('input', () =>
 {
-    const objectToSave =
+    const data_set =
     {
         email: inputForm.value,
         
         message: textareaForm.value
     };
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(objectToSave));
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data_set));
 });
 form.addEventListener('submit', (e) =>
 {
@@ -42,13 +42,13 @@ form.addEventListener('submit', (e) =>
   
     localStorage.removeItem(LOCALSTORAGE_KEY);
 });
-const load = (key) =>
+const loadData = (key) =>
 {
     try
     {
-        const serializedState = localStorage.getItem(key);
+        const get_data = localStorage.getItem(key);
 
-        return serializedState === null ? undefined : JSON.parse(serializedState);
+        return serializedState === null ? undefined : JSON.parse(get_data);
     }
     catch (error)
     {
@@ -57,7 +57,7 @@ const load = (key) =>
         console.log("\nError name - " + error.name + ";" + " Error message - " + error.message + ";");
     }
 };
-const storageData = load(LOCALSTORAGE_KEY);
+const storageData = loadData(LOCALSTORAGE_KEY);
 
 if (storageData)
 {
