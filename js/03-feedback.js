@@ -57,7 +57,15 @@ form.addEventListener('submit', (event) =>
 
         }, 2000);
             
-        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(user_json));
+        setTimeout(() =>
+        {
+            console.log("\n\nEmail: " + localStorage.getItem("email") + "; " +
+            
+                        "Password: " + localStorage.getItem("message") + ";");
+
+            localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(user_json));
+
+        }, 2000);
     }
     event.currentTarget.reset();
 
@@ -100,25 +108,6 @@ function saveMessage (message)
     {
         body.setAttribute("onload", Notiflix.Notify.failure('Ошибка ' + error.name + '! ' + error.message + "!"));
         
-        console.log("\nError " + error.name + "!" + "Error message - " + error.message + "!");
-    }
-}
-function GetData()
-{
-    try
-    {
-        body.setAttribute("onload", Notiflix.Notify.warning('Успех! Данные выгружены с сервера!'));
-
-        console.log("\nSuccess! Data get to source storage!",
-        
-                    "\n\n\nEmail: " + localStorage.getItem("email") + "; " +
-            
-                    "Password: " + localStorage.getItem("message") + ";");
-    }
-    catch (error)
-    {
-        body.setAttribute("onload", Notiflix.Notify.failure('Ошибка ' + error.name + '! ' + error.message + "!"));
-
         console.log("\nError " + error.name + "!" + "Error message - " + error.message + "!");
     }
 }
