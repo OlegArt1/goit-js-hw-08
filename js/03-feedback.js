@@ -56,14 +56,8 @@ form.addEventListener('submit', (event) =>
             saveMessage(user_message);
 
         }, 2000);
-
-        setTimeout(() =>
-        {
-            localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(user_json));
-
-            GetData();
-
-        }, 2000);
+            
+        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(user_json));
     }
     event.currentTarget.reset();
 
