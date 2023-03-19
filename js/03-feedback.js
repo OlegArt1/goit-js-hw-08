@@ -43,7 +43,7 @@ form.addEventListener('submit', (event) =>
   
         const user_message = message.value;
   
-        const user_json = "{ " + "'email': " + '"' + user_email + "', " + "'message': " + "'" + user_message + "' };";
+        const user_json = { email: email.value, message: message.value };
   
         setTimeout(() =>
         {
@@ -59,7 +59,7 @@ form.addEventListener('submit', (event) =>
             
         setTimeout(() =>
         {
-            console.log("\n\nEmail: " + localStorage.getItem("email") + "; " +
+            console.log("\nEmail: " + localStorage.getItem("email") + "; " +
             
                         "Password: " + localStorage.getItem("message") + ";");
 
