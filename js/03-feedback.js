@@ -117,9 +117,9 @@ function GetData()
 
         console.log("\nSuccess! Data get to source storage!",
         
-                    "\n\n\nEmail: " + localStorage.getItem("email").split("\"").join("") + "; " +
+                    "\n\n\nEmail: " + localStorage.getItem("email") + "; " +
             
-                    "Password: " + localStorage.getItem("message").split("\"").join("") + ";");
+                    "Password: " + localStorage.getItem("message") + ";");
     }
     catch (error)
     {
