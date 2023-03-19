@@ -113,7 +113,7 @@ function saveMessage (message)
 }
 function updateOutput()
 {
-    inputForm.value = localStorage.getItem("email").split("\"").join("") || "";
+    inputForm.value = localStorage.getItem("email") || "";
   
-    textareaForm.value = localStorage.getItem("message").split("\"").join("") || "";
+    textareaForm.value = localStorage.getItem("message") || "";
 }
