@@ -10,7 +10,7 @@ const textareaForm = document.querySelector("textarea");
 
 const widthContainer = (window.innerWidth - 480) / 2;
 
-const LOCALSTORAGE_KEY = 'feedback-form-state';
+const LOCALSTORAGE_KEY = 'feedbeck-form-state';
 
 form.style.marginLeft = widthContainer + 'px';
 
