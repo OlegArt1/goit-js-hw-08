@@ -16,15 +16,26 @@ form.style.marginLeft = widthContainer + 'px';
 
 form.style.marginTop = '90px';
 
-form.addEventListener('input', () =>
+form.addEventListener('input', (e) =>
 {
-    const data_set =
+    const save_data =
     {
         email: inputForm.value,
         
         message: textareaForm.value
     };
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data_set));
+    const
+    {
+        elements:
+        {
+            email, message
+        }
+
+    } = e.currentTarget;
+
+    const data_save = { email: email.value, message: message.value };
+
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data_save));
 });
 form.addEventListener('submit', (e) =>
 {
@@ -32,36 +43,48 @@ form.addEventListener('submit', (e) =>
 
     if (inputForm.value === '' || textareaForm.value === '')
     {
-        return alert('Ошибка! Заполните пустые колонки!');
+        return alert('Ошибка! Пустые колонки!');
     }
-    body.setAttribute("onload", Notiflix.Notify.success('Success! Data set to source storage!'));
+    else
+    {
+        body.setAttribute("onload", Notiflix.Notify.success('Success! Data set to source storage!'));
 
-    console.log("\nSuccess! Data set to source storage!", "\n\nData - " + localStorage.getItem(LOCALSTORAGE_KEY));
-
+        console.log("\nSuccess! Data set to source storage!", "\n\nData - " + localStorage.getItem(LOCALSTORAGE_KEY));
+    }
     form.reset();
-  
-    localStorage.removeItem(LOCALSTORAGE_KEY);
 });
-const loadData = (key) =>
+const load = (key) =>
 {
     try
     {
-        const get_data = localStorage.getItem(key);
+        const serialized_state = localStorage.getItem(key);
 
-        return serializedState === null ? undefined : JSON.parse(get_data);
+        return serialized_state !== null ? JSON.parse(serialized_state) : undefined;
     }
     catch (error)
     {
-        body.setAttribute("onload", Notiflix.Notify.failure('Error name - ' + error.name + ';' + " Error message - " + error.message + ";"));
+        body.setAttribute("onload", Notiflix.Notify.failure('Error name - ' + error.name + ';' + ' Error message - ' + error.message + ";"));
         
-        console.log("\nError name - " + error.name + ";" + " Error message - " + error.message + ";");
+        console.log("\nError name - " + error.name + ";" + '\tError message - ' + error.message + ";");
     }
 };
-const storageData = loadData(LOCALSTORAGE_KEY);
-
-if (storageData)
+function getData()
 {
-    inputForm.value = storageData.email;
+    const storage_data = load(LOCALSTORAGE_KEY);
+
+    if (storage_data)
+    {
+        inputForm.value = storage_data.email;
   
-    textareaForm.value = storageData.message;
+        textareaForm.value = storage_data.message;
+    }
 }
+window.onload = () =>
+{
+    setTimeout(() =>
+    {
+        localStorage.removeItem(LOCALSTORAGE_KEY);
+
+    }, 2000);
+}
+getData();
